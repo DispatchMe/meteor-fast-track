@@ -1,0 +1,21 @@
+<template name="FastTrackReport">
+  <div class="fast-track-report">
+    {{#with doc}}
+      {{#each this.events}}
+        <div class="fast-track-event">
+          <div class="fast-track-time">{{this.time}}</div>
+          {{#if this.message}}
+            {{#if this.link}}
+            <div class="fast-track-message"><a href="{{this.link}}" target="_blank">{{this.message}}</a></div>
+            {{else}}
+            <div class="fast-track-message">{{this.message}}</div>
+            {{/if}}
+          {{/if}}
+          {{#if this.data}}
+            <pre class="fast-track-data">{{dataJson}}</pre>
+          {{/if}}
+        </div>
+      {{/each}}
+    {{/with}}
+  </div>
+</template>

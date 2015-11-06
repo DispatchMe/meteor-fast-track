@@ -1,0 +1,26 @@
+{
+  "extends": "../../.jshintrc",
+  "globals": {
+    "FastTrack": true
+  },
+  "esnext": true,
+  "predef": [
+    "Accounts",
+    "App",
+    "Assets",
+    "Cordova",
+    "Dispatch",
+    "DispatchFakes",
+    "Factory",
+    "Meteor",
+    "Model",
+    "Mongo",
+    "MongoInternals",
+    "Npm",
+    "Package",
+    "Query",
+    "Random",
+    "Template",
+    "_"
+  ]
+}
