@@ -1,7 +1,8 @@
 Package.describe({
   name: 'dispatch:fast-track',
   version: '0.0.1',
-  summary: 'An easy way of tracking everything that happens to an entity, over time and across various servers and apps',
+  summary: 'Easily track everything that happens to an entity, over time and across various servers and apps',
+  git: 'https://github.com/DispatchMe/meteor-fast-track'
 });
 
 Package.onUse(function (api) {
@@ -11,7 +12,7 @@ Package.onUse(function (api) {
     // core
     'underscore',
     'mongo',
-    'ecmascript',
+    'ecmascript@0.1.6',
   ]);
 
   api.use([
