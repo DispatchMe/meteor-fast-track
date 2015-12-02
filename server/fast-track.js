@@ -56,3 +56,6 @@ Meteor.publish('__fast_track', function (selector, options) {
   if (typeof config.allowRead !== 'function' || config.allowRead(this.userId, selector) !== true) return [];
   return collection.find(selector, options || {});
 });
+
+// Indexes
+collection._ensureIndex({type: 1, id: 1});
