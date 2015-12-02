@@ -58,4 +58,4 @@ Meteor.publish('__fast_track', function (selector, options) {
 });
 
 // Indexes
-collection._ensureIndex({type: 1, id: 1});
+collection._ensureIndex({type: 1, id: 1}, {background: true});
