@@ -1,8 +1,6 @@
-var collection = new Mongo.Collection('fast_track');
 var config = {};
 
 FastTrack = {
-  Collection: collection,
   configure: (options) => {
     // allowRead and allowWrite
     config = options;
@@ -17,7 +15,7 @@ FastTrack = {
 
     if (!event.time) event.time = new Date();
 
-    collection.upsert(selector, {
+    FastTrack.Collection.upsert(selector, {
       $push: {
         events: event
       },
@@ -32,10 +30,36 @@ FastTrack = {
       id: info.id || null,
     };
 
-    let doc = collection.findOne(selector);
+    let doc = FastTrack.Collection.findOne(selector);
     return doc && doc.events;
   }
 };
+
+// Exported for tests
+initialize = function initialize() {
+  let collection;
+  if (process.env.FAST_TRACK_MONGO_URL) {
+    let driverOptions;
+
+    if (process.env.FAST_TRACK_MONGO_OPLOG_URL) {
+      driverOptions = {
+        oplogUrl: process.env.FAST_TRACK_MONGO_OPLOG_URL,
+      };
+    }
+
+    collection = new Mongo.Collection('fast_track', {
+      _driver: new MongoInternals.RemoteCollectionDriver(process.env.FAST_TRACK_MONGO_URL, driverOptions)
+    });
+  } else {
+    collection = new Mongo.Collection('fast_track');
+  }
+
+  // Indexes
+  collection._ensureIndex({type: 1, id: 1}, {background: true});
+
+  FastTrack.Collection = collection;
+};
+initialize();
 
 Meteor.methods({
   '__fast_track_log': function (info) {
@@ -54,8 +78,5 @@ Meteor.methods({
 
 Meteor.publish('__fast_track', function (selector, options) {
   if (typeof config.allowRead !== 'function' || config.allowRead(this.userId, selector) !== true) return [];
-  return collection.find(selector, options || {});
+  return FastTrack.Collection.find(selector, options || {});
 });
-
-// Indexes
-collection._ensureIndex({type: 1, id: 1}, {background: true});

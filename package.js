@@ -30,4 +30,19 @@ Package.onUse(function (api) {
   ], 'client');
 
   api.export('FastTrack');
+  api.export('initialize', {testOnly: true});
+});
+
+Package.onTest(function (api) {
+  api.use('sanjo:jasmine@0.19.0');
+
+  api.use([
+    'ecmascript',
+    'dispatch:fast-track',
+    'mongo',
+  ], 'server');
+
+  api.addFiles([
+    'tests/tests.js',
+  ], 'server');
 });

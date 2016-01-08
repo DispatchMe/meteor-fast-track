@@ -112,3 +112,14 @@ To render a report:
 The report has no styles applied so you can skin it to match your UI.
 
 `FastTrackReport` will automatically subscribe to the necessary data. Just make sure you have set an `allowRead` function in your server code by calling `FastTrack.configure`.
+
+### Use an alternative MongoDB database
+
+You may not want to store so many logs in your main app database. FastTrack allows you to specify a different MongoDB URL to use for the `fast_track` collection by setting environment variables:
+
+```
+FAST_TRACK_MONGO_URL
+FAST_TRACK_MONGO_OPLOG_URL
+```
+
+`FAST_TRACK_MONGO_OPLOG_URL` is optional but recommended if you are publishing and displaying the logs on clients.
