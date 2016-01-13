@@ -1,7 +1,8 @@
 {
   "extends": "../../.jshintrc",
   "globals": {
-    "FastTrack": true
+    "FastTrack": true,
+    "initialize": true
   },
   "esnext": true,
   "predef": [
@@ -18,9 +19,16 @@
     "MongoInternals",
     "Npm",
     "Package",
+    "process",
     "Query",
     "Random",
     "Template",
-    "_"
+    "_",
+    "jasmine",
+    "describe",
+    "it",
+    "spyOn",
+    "expect",
+    "beforeEach"
   ]
 }
